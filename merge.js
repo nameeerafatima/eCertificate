@@ -33,10 +33,18 @@ db.run(`
   )
 `);
 
-// Serve the index.html file
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
+app.use(express.static(__dirname));
+
+// // Set EJS as the view engine
+// app.set('view engine', 'ejs');
+
+// Serve static files (including the index.html file)
+// app.use(express.static(path.join(__dirname, 'public')));
+
+// // Serve the index.html file
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/index.html');
+// });
 
 
 // Handle the file upload and conversion
@@ -57,7 +65,7 @@ app.post('/upload', upload.single('excelFile'), (req, res) => {
 
     // const combinedString = row['S.No'] + row['Roll Number'] + row['Name'] + row['Domain'] + row['Project Title'] + row['Mentor'] + row['Duration (months)'] + row['Date of Completion'];
     const { 'S.No': sno, 'Roll Number': rollno, 'Name': name, 'Domain': domain, 'Project Title': projectTitle, 'Mentor': mentor, 'Duration (months)': duration, 'Date of Completion': completion } = row;
-    const combinedString = sno + rollno + name + domain + projectTitle + mentor + duration + completionDate;
+    const combinedString = rollno + name + domain + projectTitle + mentor + duration + completionDate;
     // console.log(combinedString);
 
     const hashValue = crypto.createHash('sha256').update(combinedString).digest('hex');
@@ -149,5 +157,5 @@ app.get('/api', (req, res) => {
 // Start the server
 const port = 3000;
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running at http://localhost:${port}`);
 });
