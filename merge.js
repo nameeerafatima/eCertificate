@@ -35,12 +35,6 @@ db.run(`
 
 app.use(express.static(__dirname));
 
-// // Set EJS as the view engine
-// app.set('view engine', 'ejs');
-
-// Serve static files (including the index.html file)
-// app.use(express.static(path.join(__dirname, 'public')));
-
 // // Serve the index.html file
 // app.get('/', (req, res) => {
 //   res.sendFile(__dirname + '/index.html');
