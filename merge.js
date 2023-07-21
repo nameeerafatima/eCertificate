@@ -47,7 +47,7 @@ app.post('/upload', upload.single('excelFile'), (req, res) => {
 
   // Generate and add unique hash values (using sha256) as a new column
   jsonData.forEach((row) => {
-    console.log(row);
+    // console.log(row);
 
     // Convert and format the date value
     const rawDate = row['Date of Completion'];
@@ -58,14 +58,13 @@ app.post('/upload', upload.single('excelFile'), (req, res) => {
     // const combinedString = row['S.No'] + row['Roll Number'] + row['Name'] + row['Domain'] + row['Project Title'] + row['Mentor'] + row['Duration (months)'] + row['Date of Completion'];
     const { 'S.No': sno, 'Roll Number': rollno, 'Name': name, 'Domain': domain, 'Project Title': projectTitle, 'Mentor': mentor, 'Duration (months)': duration, 'Date of Completion': completion } = row;
     const combinedString = sno + rollno + name + domain + projectTitle + mentor + duration + completionDate;
+    // console.log(combinedString);
 
-
-    console.log(combinedString);
     const hashValue = crypto.createHash('sha256').update(combinedString).digest('hex');
     row['link'] = startLink + hashValue;
 
     // const { sno, rollno, name, domain, projectTitle, mentor, duration, completion } = row;
-    console.log(sno, rollno, name, domain, projectTitle, mentor, duration, completion);
+    // console.log(sno, rollno, name, domain, projectTitle, mentor, duration, completion);
 
     // Check if the row with the same hash value already exists in the database
     db.get('SELECT * FROM data WHERE hashValue = ?', [hashValue], (err, result) => {
