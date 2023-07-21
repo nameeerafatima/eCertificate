@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Certificate of Completion</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-top: 50px;
+    }
+
+    p {
+      color: #777;
+    }
+
+    .certificate {
+      margin: 50px auto;
+      width: 600px;
+      padding: 20px;
+      border: 2px solid #333;
+      border-radius: 10px;
+    }
+
+    .logo {
+      width: 200px;
+      margin: 0 auto;
+    }
+
+    .name {
+      font-size: 24px;
+      margin-top: 30px;
+    }
+
+    .event {
+      font-size: 18px;
+      margin-top: 20px;
+      color: #555;
+    }
+
+    .date {
+      font-size: 16px;
+      margin-top: 10px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="certificate">
+    <h1>Certificate of Completion</h1>
+    <p>This is to certify that</p>
+    <h3 class="name"><%= Name %> (<%= Rollno %>) </h3>
+    <p> has successfully completed the <h4><%= Title %></h4>
+    under the mentorship of <h4><%= Mentor %></h4>
+    for a duration of <%= Duration %> months
+    which ended on <%= Completion %></p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    function downloadPDF() {
+      const element = document.querySelector('.certificate');
+      const opt = {
+        margin: 10,
+        filename: 'certificate.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 1 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+      };
+
+      html2pdf()
+        .set(opt)
+        .from(element)
+        .save();
+    }
+  </script>
+
+  <button onclick="downloadPDF()">Download Certificate</button>
+</body>
+</html>
